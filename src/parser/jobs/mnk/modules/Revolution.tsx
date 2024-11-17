@@ -29,8 +29,7 @@ export class Revolution extends Analyser {
 
 	private onComplete(): void {
 		if (this.revolutions > 0) {
-			const lowerBound = this.revolutions * (getBasePotency(this.data.actions.ELIXIR_BURST) - getBasePotency(this.data.actions.CELESTIAL_REVOLUTION))
-			const upperBound = this.revolutions * (getBasePotency(this.data.actions.RISING_PHOENIX) - getBasePotency(this.data.actions.CELESTIAL_REVOLUTION))
+			const potencyLost = this.revolutions * (getBasePotency(this.data.actions.RISING_PHOENIX) - getBasePotency(this.data.actions.CELESTIAL_REVOLUTION))
 			this.suggestions.add(new Suggestion({
 				icon: this.data.actions.CELESTIAL_REVOLUTION.icon,
 				content: <Trans id="mnk.cr.suggestions.content">
@@ -38,7 +37,7 @@ export class Revolution extends Analyser {
 				</Trans>,
 				severity: SEVERITY.MAJOR,
 				why: <Trans id="mnk.cr.suggestions.why">
-					{lowerBound} - {upperBound} potency lost due to <Plural value={this.revolutions} one="# use" other="# uses"/> of <ActionLink action="CELESTIAL_REVOLUTION"/>.
+					{potencyLost} potency lost due to <Plural value={this.revolutions} one="# use" other="# uses"/> of <ActionLink action="CELESTIAL_REVOLUTION"/>.
 				</Trans>,
 			}))
 		}
